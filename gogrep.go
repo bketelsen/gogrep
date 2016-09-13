@@ -77,7 +77,6 @@ func search(ctx context.Context, root string, pattern string) ([]string, error) 
 		g.Go(func() error {
 			data, err := ioutil.ReadFile(p)
 			if err != nil {
-				fmt.Println(err)
 				return err
 			}
 			if !bytes.Contains(data, []byte(pattern)) {
@@ -100,8 +99,5 @@ func search(ctx context.Context, root string, pattern string) ([]string, error) 
 	for r := range c {
 		m = append(m, r)
 	}
-	if err := g.Wait(); err != nil {
-		return nil, err
-	}
-	return m, nil
+	return m, g.Wait()
 }

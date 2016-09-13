@@ -44,7 +44,7 @@ func main() {
 
 func search(ctx context.Context, root string, pattern string) ([]string, error) {
 	g, ctx := errgroup.WithContext(ctx)
-	paths := make(chan string)
+	paths := make(chan string, 100)
 	// get all the paths
 
 	g.Go(func() error {
@@ -71,7 +71,7 @@ func search(ctx context.Context, root string, pattern string) ([]string, error) 
 
 	})
 
-	c := make(chan string)
+	c := make(chan string, 100)
 	for path := range paths {
 		p := path
 		g.Go(func() error {

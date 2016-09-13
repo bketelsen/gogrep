@@ -19,10 +19,10 @@ func main() {
 	duration := flag.Duration("timeout", 500*time.Millisecond, "timeout in milliseconds")
 	flag.Usage = func() {
 		fmt.Printf("%s by Brian Ketelsen\n", os.Args[0])
-		fmt.Println("Flags:")
-		flag.PrintDefaults()
 		fmt.Println("Usage:")
 		fmt.Printf("	gogrep [flags] path pattern \n")
+		fmt.Println("Flags:")
+		flag.PrintDefaults()
 	}
 	flag.Parse()
 	if flag.NArg() != 2 {

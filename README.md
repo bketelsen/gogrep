@@ -1,3 +1,3 @@
 # gogrep
 
-Source code for web article.  Will update with link when published.
+[Article](https://www.oreilly.com/learning/run-strikingly-fast-parallel-file-searches-in-go-with-sync-errgroup)

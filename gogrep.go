@@ -31,7 +31,8 @@ func main() {
 	}
 	path := flag.Arg(0)
 	pattern := flag.Arg(1)
-	ctx, _ := context.WithTimeout(context.Background(), *duration)
+	ctx, cf := context.WithTimeout(context.Background(), *duration)
+	defer cf()
 	m, err := search(ctx, path, pattern)
 	if err != nil {
 		log.Fatal(err)

@@ -2,3 +2,4 @@ gogrep
 vendor/
 /.GOPATH
 /bin
+.envrc

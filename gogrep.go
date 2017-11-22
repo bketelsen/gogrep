@@ -16,9 +16,7 @@ import (
 )
 
 var (
-	// Version stores the version of this application
-	Version = "N/A"
-	// BuildTime is computed in the Makefile
+	Version   = "N/A"
 	BuildTime = "N/A"
 )
 

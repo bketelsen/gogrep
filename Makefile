@@ -1,7 +1,15 @@
+# modified from https://github.com/cloudflare/hellogopher  
+# which is copyrighted by Cloudflare
+#
 # import path is where your repository can be found.
 # To import subpackages, always prepend the full import path.
 # If you change this, run `make clean`. Read more: https://git.io/vM7zV
 IMPORT_PATH := github.com/bketelsen/gogrep
+DOCKER_IMAGE := gogrep
+build_dir := $(CURDIR)/build
+dist_dir := $(CURDIR)/dist
+exec := $(DOCKER_IMAGE)
+github_repo := bketelsen/gogrep
 
 # V := 1 # When V is set, print commands and build progress.
 
@@ -15,6 +23,26 @@ all: test build
 build: .GOPATH/.ok
 	@echo "Building..."
 	$Q go install $(if $V,-v) $(VERSION_FLAGS) $(IMPORT_PATH)
+
+.PHONY: clean-build
+clean-build:
+	@echo "Removing build files"
+	rm -rf $(build_dir)
+
+.PHONY: clean-dist
+clean-dist:
+	@echo "Removing distribution files"
+	rm -rf $(dist_dir)
+
+.PHONY: tags
+tags: .GOPATH/.ok
+	@echo "Listing tags..."
+	$Q @git tag
+
+.PHONY: release
+release: clean-dist build
+	goreleaser
+
 
 ### Code not in the repository root? Another binary? Add to the path like this.
 # .PHONY: otherbin
@@ -34,7 +62,7 @@ deps: .GOPATH/.ok
 
 docker:
 	@echo "Docker Build..."
-	$Q docker build -t bketelsen/gogrep .
+	$Q docker build -t $(DOCKER_IMAGE) .
 
 clean:
 	@echo "Clean..."
@@ -101,6 +129,7 @@ setup: clean .GOPATH/.ok
 	go get -u github.com/golang/dep/cmd/dep
 	go get github.com/wadey/gocovmerge
 	go get golang.org/x/tools/cmd/goimports
+	go get github.com/mitchellh/gox
 
 VERSION          := $(shell git describe --tags --always --dirty="-dev")
 DATE             := $(shell date -u '+%Y-%m-%d-%H:%M UTC')

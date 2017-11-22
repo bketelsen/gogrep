@@ -5,4 +5,4 @@ ADD . /go/src/github.com/bketelsen/gogrep
 WORKDIR /go/src/github.com/bketelsen/gogrep
 RUN make clean
 RUN make
-CMD /go/src/github.com/bketelsen/gogrep/bin/gogrep 
+CMD /go/src/github.com/bketelsen/gogrep/bin/gogrep

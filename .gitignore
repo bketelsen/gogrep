@@ -1,1 +1,4 @@
 gogrep
+vendor/
+/.GOPATH
+/bin

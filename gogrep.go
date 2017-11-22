@@ -15,10 +15,18 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+var (
+	// Version stores the version of this application
+	Version = "N/A"
+	// BuildTime is computed in the Makefile
+	BuildTime = "N/A"
+)
+
 func main() {
 	duration := flag.Duration("timeout", 500*time.Millisecond, "timeout in milliseconds")
 	flag.Usage = func() {
 		fmt.Printf("%s by Brian Ketelsen\n", os.Args[0])
+		fmt.Printf("Version %s, Built: %s \n", Version, BuildTime)
 		fmt.Println("Usage:")
 		fmt.Printf("	gogrep [flags] path pattern \n")
 		fmt.Println("Flags:")

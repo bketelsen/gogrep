@@ -1,5 +1,5 @@
+/bin/
+/dist/
 gogrep
-vendor/
-/.GOPATH
-/bin
+coverage.out
 .envrc
